@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+from src.pipeline import run
 
 app = FastAPI(title="Text-to-SQL")
 
@@ -15,4 +16,4 @@ def health():
 
 @app.post("/query")
 def query(q: Query):
-    return {"sql": "SELECT 1;", "results": [], "question": q.question}
+    return run(q.question)
